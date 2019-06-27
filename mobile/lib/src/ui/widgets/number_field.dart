@@ -1,9 +1,10 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:quiver/strings.dart';
 
 class NumberField extends StatefulWidget {
   final Field field;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<int> onChanged;
 
   const NumberField({Key key, @required this.field, this.onChanged})
       : super(key: key);
@@ -20,8 +21,15 @@ class _NumberFieldState extends State<NumberField> {
         Text(widget.field.title),
         SizedBox(height: 10),
         TextField(
-          onChanged: widget.onChanged,
+          onChanged: (value) {
+            int v;
+            if (!isBlank(value)) {
+              v = int.parse(value);
+            }
+            widget.onChanged(v);
+          },
           decoration: InputDecoration(border: OutlineInputBorder()),
+          keyboardType: TextInputType.number,
         ),
         SizedBox(height: 15),
       ],

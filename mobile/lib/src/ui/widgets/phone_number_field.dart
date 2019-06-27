@@ -22,6 +22,7 @@ class _PhoneNumberFieldState extends State<PhoneNumberField> {
         TextField(
           onChanged: widget.onChanged,
           decoration: InputDecoration(border: OutlineInputBorder()),
+          keyboardType: TextInputType.phone,
         ),
         SizedBox(height: 15),
       ],

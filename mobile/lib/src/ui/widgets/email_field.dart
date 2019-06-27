@@ -22,6 +22,7 @@ class _EmailFieldState extends State<EmailField> {
         TextField(
           onChanged: widget.onChanged,
           decoration: InputDecoration(border: OutlineInputBorder()),
+          keyboardType: TextInputType.emailAddress,
         ),
         SizedBox(height: 15),
       ],

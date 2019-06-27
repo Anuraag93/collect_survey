@@ -49,6 +49,7 @@ class _DateFieldState extends State<DateField> {
       String format = widget.field.properties?.structure ?? "dd/MM/yyyy";
       setState(() {
         _date = DateFormat(format).format(picked);
+        widget.onChanged(_date);
       });
     }
   }

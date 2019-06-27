@@ -5,7 +5,8 @@ class ShortTextField extends StatefulWidget {
   final Field field;
   final ValueChanged<String> onChanged;
 
-  const ShortTextField({Key key,@required this.field, this.onChanged}) : super(key: key);
+  const ShortTextField({Key key, @required this.field, this.onChanged})
+      : super(key: key);
   @override
   _ShortTextFieldState createState() => _ShortTextFieldState();
 }
@@ -21,6 +22,7 @@ class _ShortTextFieldState extends State<ShortTextField> {
         TextField(
           onChanged: widget.onChanged,
           decoration: InputDecoration(border: OutlineInputBorder()),
+          keyboardType: TextInputType.text,
         ),
         SizedBox(height: 15),
       ],
