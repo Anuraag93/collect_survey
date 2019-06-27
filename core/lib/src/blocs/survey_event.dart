@@ -27,3 +27,15 @@ class LoadSurvey extends SurveyEvent {
     return 'LoadSurvey { json: $json}';
   }
 }
+
+class SaveUserInput extends SurveyEvent {
+  final Map<String, dynamic> input;
+  final String tableName;
+
+  SaveUserInput({@required this.tableName, @required this.input}) : super([input]);
+
+  @override
+  String toString() {
+    return 'SaveUserInput { input: $input, tableName: $tableName }';
+  }
+}

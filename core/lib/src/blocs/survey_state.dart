@@ -29,3 +29,8 @@ class SurveyFromJson extends SurveyState {
   @override
   String toString() => 'SurveyFromJson';
 }
+
+class SurveyAdded extends SurveyState {
+  @override
+  String toString() => 'SurveyAdded';
+}

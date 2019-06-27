@@ -15,6 +15,9 @@ class SurveyBloc extends Bloc<SurveyEvent, SurveyState> {
       yield await _mapFetchApiToState(api: event.api);
     } else if (event is LoadSurvey) {
       yield _mapLoadSurveyToState(json: event.json);
+    } else if (event is SaveUserInput) {
+      yield _mapUserInputToState(
+          tableName: event.tableName, input: event.input);
     }
   }
 
@@ -32,5 +35,11 @@ class SurveyBloc extends Bloc<SurveyEvent, SurveyState> {
   SurveyState _mapLoadSurveyToState({String json}) {
     final s = surveyFromJson(json);
     return SurveyFromJson(survey: s);
+  }
+
+ SurveyState _mapUserInputToState({Map<String, dynamic> input, String tableName}) {
+    //save to the db with table name
+
+    return SurveyAdded();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile/src/ui/screens/thankyou_page_list.dart';
 import 'package:mobile/src/ui/widgets/widgets.dart';
 import 'package:mobile/src/ui/widgets/yes_no_field.dart';
 import 'package:quiver/strings.dart';
@@ -16,6 +17,7 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
   Map<String, dynamic> _formInput;
   List<String> _validationFields = [];
   bool _isValid = false;
+  String _tableName;
 
   @override
   void initState() {
@@ -35,8 +37,6 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (state is SurveyFromApi) {
-          return _buildSurvey(state.survey);
         } else if (state is SurveyFromJson) {
           return _buildSurvey(state.survey);
         }
@@ -45,6 +45,9 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
   }
 
   Widget _buildSurvey(Survey survey) {
+    _tableName = survey.title.replaceAll(" ", "_");
+    print("_tableName => $_tableName");
+
     final fields = survey.fields;
     if (_formInput == null) {
       _formInput = {};
@@ -182,6 +185,11 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
     if (_isValid) {
       print("validation Field over => $_formInput");
       //save to database [_formInput]
+      _bloc.dispatch(SaveUserInput(input: _formInput, tableName: _tableName));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => ThankyouPageList()));
     }
   }
 
