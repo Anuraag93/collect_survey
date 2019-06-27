@@ -1,8 +1,6 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
 library core;
 
-export 'src/core_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'package:core/src/service/services.dart';
+export 'package:core/src/blocs/blocs.dart';
+export 'package:core/src/constants.dart';
+export 'package:core/src/model/model.dart';
