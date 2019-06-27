@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile/src/ui/widgets/widgets.dart';
 
 class LoadSurveyPage extends StatefulWidget {
   @override
@@ -49,26 +50,37 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
           children: fields.map((f) {
             switch (f.type.toLowerCase()) {
               case "short_text":
+                return ShortTextField(field: f);
                 break;
               case "dropdown":
+                return DropdownField(field: f);
                 break;
               case "number":
+                return NumberField(field: f);
                 break;
               case "email":
+                return EmailField(field: f);
                 break;
               case "phone_number":
+                return PhoneNumberField(field: f);
                 break;
               case "rating":
+                return RatingField(field: f);
                 break;
               case "date":
+                return DateField(field: f);
                 break;
               case "yes_no":
+                return YesNoField(field: f);
                 break;
               default:
+                return ShortTextField(field: f);
             }
           }).toList(),
         ),
       ),
     );
   }
+
+  
 }

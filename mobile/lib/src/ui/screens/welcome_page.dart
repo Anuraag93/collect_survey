@@ -31,13 +31,13 @@ class WelcomePage extends StatelessWidget {
               style: theme.textTheme.title,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 50),
             Text(
               description,
               style: theme.textTheme.subhead,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             if (showButton)
               RaisedButton(
                 child: Text(buttonText),
