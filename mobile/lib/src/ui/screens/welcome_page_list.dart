@@ -20,7 +20,7 @@ class _WelcomePageListState extends State<WelcomePageList>
   Widget build(BuildContext context) {
     List<Widget> _getPageChildren = [
       if (widget.idList != null && widget.idList.isNotEmpty)
-        Center(
+        SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: widget.idList.map((id) {
