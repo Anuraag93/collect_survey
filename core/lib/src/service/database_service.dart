@@ -16,6 +16,9 @@ abstract class DatabaseService<T> {
   /// delete in database
   Future<int> deleteDB(int id);
 
+  /// rawQurey in database
+  Future<List<Map<String, dynamic>>> rawQuery(String query);
+
   ///close database
   Future close();
 }

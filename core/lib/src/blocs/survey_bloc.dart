@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 
 class SurveyBloc<T> extends Bloc<SurveyEvent, SurveyState> {
   DatabaseService<T> _db;
-  List<int> _surveyEnteredList = [];
+  List<Map<String, dynamic>> _surveyEnteredList = [];
 
   SurveyBloc({@required DatabaseService<T> db}) : _db = db;
   Survey _survey;
@@ -46,13 +46,14 @@ class SurveyBloc<T> extends Bloc<SurveyEvent, SurveyState> {
   }
 
   Future<SurveyState> _mapUserInputToState(
-      {Map<String, dynamic> input, String tableName}) async {
+      {Map<String, dynamic> input}) async {
     //save to the db with table name
     int id = await _db.insertDB(input);
     print("id => $id");
     if (id != null) {
-      _surveyEnteredList.add(id);
-      return SurveyAdded(survey: _survey);
+      String query = 'SELECT * FROM ${_survey.title.replaceAll(" ", "_")}';
+      _surveyEnteredList = await _db.rawQuery(query);
+      return SurveyAdded(survey: _survey, idList: _surveyEnteredList);
     } else {
       return NoSurvey(error: "survey is null");
     }

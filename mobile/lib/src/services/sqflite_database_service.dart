@@ -65,4 +65,9 @@ create table $_tableName (
 
   @override
   Future close() async => _database.close();
+
+  @override
+  Future<List<Map<String, dynamic>>> rawQuery(String query) async {
+    return await _database.rawQuery(query);
+  }
 }

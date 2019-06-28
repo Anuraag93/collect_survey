@@ -1,20 +1,12 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/src/ui/screens/load_survey_page.dart';
 
 class WelcomePage extends StatelessWidget {
-  final String title;
-  final String description;
-  final String buttonText;
-  final bool showButton;
   final VoidCallback onPressed;
+  final WelcomeScreen data;
 
-  const WelcomePage(
-      {Key key,
-      this.title = "",
-      this.description = "",
-      this.buttonText = "",
-      this.showButton = false,
-      this.onPressed})
-      : super(key: key);
+  const WelcomePage({Key key, this.onPressed, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -27,21 +19,26 @@ class WelcomePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              title,
+              data.title ?? "",
               style: theme.textTheme.title,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 50),
             Text(
-              description,
+              data.properties.description ?? "",
               style: theme.textTheme.subhead,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
-            if (showButton)
+            if (data.properties.showButton ?? false)
               RaisedButton(
-                child: Text(buttonText),
-                onPressed: onPressed,
+                child: Text(data.properties.buttonText ?? ""),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => LoadSurveyPage()));
+                },
               )
           ],
         ),

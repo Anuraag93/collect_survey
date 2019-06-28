@@ -30,11 +30,11 @@ class _MyHomePageState extends State<MyHomePage> {
           return GetApiPage();
         } else if (state is SurveyFromApi) {
           _saveJson(state.survey);
-          return WelcomePageList(survey: state.survey);
+          return WelcomePageList(survey: state.survey, idList: state.idList);
         } else if (state is SurveyFromJson) {
-          return WelcomePageList(survey: state.survey);
+          return WelcomePageList(survey: state.survey, idList: state.idList);
         } else if (state is SurveyAdded) {
-          return WelcomePageList(survey: state.survey);
+          return WelcomePageList(survey: state.survey, idList: state.idList);
         } else {
           return Scaffold(
             appBar: AppBar(),
