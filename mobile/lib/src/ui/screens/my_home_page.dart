@@ -33,6 +33,15 @@ class _MyHomePageState extends State<MyHomePage> {
           return WelcomePageList(survey: state.survey);
         } else if (state is SurveyFromJson) {
           return WelcomePageList(survey: state.survey);
+        } else if (state is SurveyAdded) {
+          return WelcomePageList(survey: state.survey);
+        } else {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
       },
     );

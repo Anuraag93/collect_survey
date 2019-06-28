@@ -12,7 +12,7 @@ class LoadSurveyPage extends StatefulWidget {
 }
 
 class _LoadSurveyPageState extends State<LoadSurveyPage> {
-  var _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   SurveyBloc _bloc;
   Map<String, dynamic> _formInput;
   List<String> _validationFields = [];
@@ -30,15 +30,19 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
     return BlocBuilder<SurveyEvent, SurveyState>(
       bloc: _bloc,
       builder: (BuildContext context, SurveyState state) {
-        if (state is NoSurvey) {
+        if (state is SurveyFromJson) {
+          return _buildSurvey(state.survey);
+        } else if (state is SurveyFromApi) {
+          return _buildSurvey(state.survey);
+        } else if (state is SurveyAdded) {
+          return _buildSurvey(state.survey);
+        } else {
           return Scaffold(
             appBar: AppBar(),
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (state is SurveyFromJson) {
-          return _buildSurvey(state.survey);
         }
       },
     );

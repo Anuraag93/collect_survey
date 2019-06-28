@@ -6,6 +6,7 @@ import 'package:core/src/model/model.dart';
 import 'package:http/http.dart' as http;
 
 class SurveyBloc extends Bloc<SurveyEvent, SurveyState> {
+  Survey _survey;
   @override
   SurveyState get initialState => NoSurvey();
 
@@ -24,8 +25,8 @@ class SurveyBloc extends Bloc<SurveyEvent, SurveyState> {
   Future<SurveyState> _mapFetchApiToState({String api}) async {
     var response = await http.get(api);
     if (response.statusCode == 200) {
-      final s = surveyFromJson(response.body);
-      return SurveyFromApi(survey: s);
+      _survey = surveyFromJson(response.body);
+      return SurveyFromApi(survey: _survey);
     } else {
       print("Request failed with status: ${response.statusCode}.");
       return NoSurvey(error: response.statusCode.toString());
@@ -33,13 +34,18 @@ class SurveyBloc extends Bloc<SurveyEvent, SurveyState> {
   }
 
   SurveyState _mapLoadSurveyToState({String json}) {
-    final s = surveyFromJson(json);
-    return SurveyFromJson(survey: s);
+    _survey = surveyFromJson(json);
+    return SurveyFromJson(survey: _survey);
   }
 
- SurveyState _mapUserInputToState({Map<String, dynamic> input, String tableName}) {
+  SurveyState _mapUserInputToState(
+      {Map<String, dynamic> input, String tableName}) {
     //save to the db with table name
 
-    return SurveyAdded();
+    if (_survey != null) {
+      return SurveyAdded(survey: _survey);
+    } else {
+      return NoSurvey(error: "survey is null");
+    }
   }
 }

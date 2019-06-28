@@ -31,6 +31,9 @@ class SurveyFromJson extends SurveyState {
 }
 
 class SurveyAdded extends SurveyState {
+  final Survey survey;
+
+  SurveyAdded({this.survey});
   @override
   String toString() => 'SurveyAdded';
 }
