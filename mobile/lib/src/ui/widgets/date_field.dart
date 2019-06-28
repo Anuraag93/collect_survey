@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quiver/strings.dart';
 
 class DateField extends StatefulWidget {
   final Field field;
@@ -13,7 +14,10 @@ class DateField extends StatefulWidget {
 }
 
 class _DateFieldState extends State<DateField> {
-  String _date = "";
+  String _dateString = "";
+  DateTime _date = DateTime.now();
+  String _format;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +32,7 @@ class _DateFieldState extends State<DateField> {
             decoration: BoxDecoration(
                 border: Border.all(width: 0.5),
                 borderRadius: BorderRadius.circular(3)),
-            child: Text(_date),
+            child: Text(_dateString),
           ),
           onTap: _selectDate,
         ),
@@ -40,16 +44,41 @@ class _DateFieldState extends State<DateField> {
   void _selectDate() async {
     final DateTime picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: _date ?? DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 1),
       lastDate: DateTime(DateTime.now().year + 1),
     );
     if (picked != null) {
-      print("picked => $picked");
-      String format = widget.field.properties?.structure ?? "dd/MM/yyyy";
+      // print("picked => $picked");
+      if (_format == null) {
+        if (widget.field.properties?.structure == null) {
+          _format = "dd/MM/yyyy";
+        } else {
+          var structure = widget.field.properties?.structure?.split("") ?? [];
+          var seperator = widget.field.properties?.separator ?? "";
+          String preChar;
+          _format = "";
+          structure.forEach((f) {
+            if (preChar == null) {
+              preChar = f;
+            } else if (preChar != f) {
+              preChar = f;
+              _format += seperator;
+            }
+            if (f == "D" || f == "Y") {
+              _format += f.toLowerCase();
+            } else {
+              _format += f;
+            }
+          });
+        }
+      }
+
       setState(() {
-        _date = DateFormat(format).format(picked);
-        widget.onChanged(_date);
+        _date = picked;
+        _dateString = DateFormat(_format).format(picked);
+        print("$_format ==> $_dateString");
+        widget.onChanged(_dateString);
       });
     }
   }
