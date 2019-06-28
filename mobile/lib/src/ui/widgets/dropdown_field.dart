@@ -19,10 +19,10 @@ class _DropdownFieldState extends State<DropdownField> {
     choices =
         widget.field.properties?.choices?.map((c) => c.label)?.toList() ?? [];
 
-    print("choices => $choices");
+    // print("choices => $choices");
     if (widget.field.properties?.alphabeticalOrder ?? true) {
       choices.sort();
-      print("sorted choices => $choices");
+      // print("sorted choices => $choices");
     }
     super.initState();
   }

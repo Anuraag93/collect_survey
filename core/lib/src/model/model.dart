@@ -9,3 +9,4 @@ export 'package:core/src/model/thankyou_screen_properties.dart';
 export 'package:core/src/model/validations.dart';
 export 'package:core/src/model/welcome_screen.dart';
 export 'package:core/src/model/welcome_screen_properties.dart';
+export 'package:core/src/model/column_data.dart';

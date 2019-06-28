@@ -17,7 +17,7 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
   Map<String, dynamic> _formInput;
   List<String> _validationFields = [];
   bool _isValid = false;
-  String _tableName;
+  // String _tableName;
 
   @override
   void initState() {
@@ -49,8 +49,8 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
   }
 
   Widget _buildSurvey(Survey survey) {
-    _tableName = survey.title.replaceAll(" ", "_");
-    print("_tableName => $_tableName");
+    // _tableName = survey.title.replaceAll(" ", "_");
+    // print("_tableName => $_tableName");
 
     final fields = survey.fields;
     if (_formInput == null) {
@@ -124,7 +124,7 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
                   return RatingField(
                     field: f,
                     onChanged: (value) {
-                      _formInput[f.id] = value;
+                      _formInput[f.id] = value.toInt();
                     },
                   );
                   break;
@@ -189,7 +189,7 @@ class _LoadSurveyPageState extends State<LoadSurveyPage> {
     if (_isValid) {
       print("validation Field over => $_formInput");
       //save to database [_formInput]
-      _bloc.dispatch(SaveUserInput(input: _formInput, tableName: _tableName));
+      _bloc.dispatch(SaveUserInput(input: _formInput));
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

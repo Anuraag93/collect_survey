@@ -1,16 +1,21 @@
+import 'package:core/src/model/column_data.dart';
+
 abstract class DatabaseService<T> {
   /// Initialise database
-  Future<T> database;
+  Future<void> openDB(String tableName, List<ColumnData> columns);
 
   /// Insert in database
-  void insertDB(String tableName, Map<String, dynamic> data);
+  Future<int> insertDB(Map<String, dynamic> data);
 
   /// Read in database
-  void readDB(String tableName, Map<String, dynamic> data);
+  Future<Map<String, dynamic>> readDB(int id);
 
   /// Update in database
-  void updateDB(String tableName, Map<String, dynamic> data);
+  Future<int> update(Map<String, dynamic> data);
 
   /// delete in database
-  void deleteDB(String tableName, Map<String, dynamic> data);
+  Future<int> deleteDB(int id);
+
+  ///close database
+  Future close();
 }
